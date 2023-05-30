@@ -4,8 +4,8 @@
   "description": "api for project",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "start": "nodemon server.js",
+    "build": "npm run build"   },
   "keywords": [
     "server",
     "http",
@@ -20,6 +20,7 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mysql": "^2.18.1",
+    "ngrok": "^5.0.0-beta.2",
     "sequelize": "^3.30.4"
   }
 }
