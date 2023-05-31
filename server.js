@@ -45,6 +45,12 @@ server.get('/api/data', function(req, res) {
 // Utilisez le router pour les autres routes
 server.use('/api/', apiRouter);
 
+server.use((error, req, res, next) => {
+  res.status(error.status || 500).render('error', { 
+    msg: 'Please check back later!'
+  });
+});
+
 //launch server
 server.listen(8080, function(){
   console.log('Server en écoute');
