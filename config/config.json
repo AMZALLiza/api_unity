@@ -4,20 +4,23 @@
     "password": "test",
     "database": "database_development_retro",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port":3306
   },
   "test": {
     "username": "root",
     "password": "test",
     "database": "database_test_retro",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port":3306
   },
   "production": {
     "username": "root",
     "password": "test",
     "database": "database_production_retro",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port":3306
   }
 }
