@@ -20,7 +20,7 @@ server.get('/', function(req, res) {
 server.get('/api/data', function(req, res) {
   // Configuration de la connexion à la base de données
   var connection = mysql.createConnection({
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'root',
     password: 'test',
     database: 'database_development_retro'
