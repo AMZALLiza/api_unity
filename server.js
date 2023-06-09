@@ -3,14 +3,22 @@ var express = require('express');
 var apiRouter = require('./apiRouter').router;
 var mysql = require('mysql');
 
-// Instancier 
+// Instancier
 var server = express();
 
-//body parser 
+//body parser
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-//configure routes 
+// Configure CORS headers
+server.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
+//configure routes
 server.get('/', function(req, res) {
   res.setHeader('Content-Type', 'text/html');
   res.status(200).send('<h1>Hello</h1>');
@@ -34,7 +42,7 @@ server.get('/api/data', function(req, res) {
       console.log(error);
       res.status(500).send('Une erreur est survenue lors de la récupération des données');
     } else {
-      res.status(200).json(results); 
+      res.status(200).json(results);
     }
   });
 
@@ -46,12 +54,12 @@ server.get('/api/data', function(req, res) {
 server.use('/api/', apiRouter);
 
 server.use((error, req, res, next) => {
-  res.status(error.status || 500).render('error', { 
+  res.status(error.status || 500).render('error', {
     msg: 'Please check back later!'
   });
 });
 
 //launch server
-server.listen(8080, function(){
+server.listen(8080, function() {
   console.log('Server en écoute');
 });

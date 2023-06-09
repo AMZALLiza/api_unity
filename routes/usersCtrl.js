@@ -5,48 +5,49 @@ var models = require("../models");
 //routes
 module.exports = {
   register: function (req, res) {
-    //param
     var email = req.body.email;
     var username = req.body.username;
     var password = req.body.password;
     var bio = req.body.bio;
-
-    if (email == null || username == null || password == null) {
-      return res.status(400).json({ error: "missing parameters" });
-    }
-
-    //vérifier pseudo mail etc
+    var tel = req.body.tel;
+    var formation = req.body.formation;
+    var isAdmin = req.body.isAdmin;
 
     models.User.findOne({
-      attributes: ["email"],
+      attributes: ['email'],
       where: { email: email },
     })
       .then(function (userFound) {
         if (!userFound) {
-          bcrypt.hash(password, 5, function (err, bcryptedPassword) {
+          bcrypt.hash(password, 5, function (err, hashedPassword) {
             var newUser = models.User.create({
               email: email,
               username: username,
-              password: bcryptedPassword,
+              password: hashedPassword,
               bio: bio,
-              isAdmin: 0,
+              isAdmin: isAdmin || false,
+              formation: formation,
+              tel: tel,
             })
               .then(function (newUser) {
+                console.log("New user created:", newUser);
                 return res.status(201).json({
                   userId: newUser.id,
-                  token: jwtUtils.generateTokenForUser(userFound),
+                  token: jwtUtils.generateTokenForUser(newUser),
                 });
               })
               .catch(function (err) {
+                console.log("Error creating new user:", err);
                 return res.status(500).json({ error: "cannot add user" });
               });
           });
         } else {
-          return res.status(409).json({ error: "user already exist" });
+          return res.status(409).json({ error: "user already exists" });
         }
       })
       .catch(function (err) {
-        return res.status(500).json({ error: "unable to verify user" });
+        console.log("Error finding user:", err);
+        return res.status(500).json({ error: "unable to find user" });
       });
   },
   login: function (req, res) {

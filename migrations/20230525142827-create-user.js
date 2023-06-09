@@ -29,6 +29,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.BOOLEAN
       },
+      formation: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      tel: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
