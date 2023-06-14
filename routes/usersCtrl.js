@@ -12,6 +12,13 @@ module.exports = {
     var tel = req.body.tel;
     var formation = req.body.formation;
     var isAdmin = req.body.isAdmin;
+    /**
+     var name = req.body.name;
+     var firstname = req.body.first_name;
+     var zipcode = req.body.first_name;
+     var city = req.body.city;
+     var interest = req.body.interest;
+     */
 
     models.User.findOne({
       attributes: ['email'],
